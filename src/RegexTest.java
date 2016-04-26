@@ -2,6 +2,7 @@
  * provide names and student id numbers here
  */
 
+import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
