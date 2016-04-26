@@ -2,8 +2,6 @@
  * provide names and student id numbers here
  */
 
-package regex;
-
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
