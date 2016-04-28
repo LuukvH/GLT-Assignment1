@@ -64,7 +64,7 @@ public class RegexTest {
         //FLOAT.runTest("2346", 0);
         FLOAT.runTest("0.6", 0);
         //language=RegExp
-        String rString = "\"(([\\\\][\"])|[^\"])*\"";
+        String rString = "[\"](([\\\\][\"])|[^\"])*[\"]";
 
         rString = rString.replace("\"", "\\\"");
 
@@ -74,8 +74,14 @@ public class RegexTest {
         STRING.runTest("\"te\"st\"", 0);
         STRING.runTest("\"te\\\"st\"", 0);
         STRING.runTest("\"test\"", 0);
+
+        // has to fail
         STRING.runTest("\"test", 0);
         STRING.runTest("test", 0);
+
+        // here is some ambiguity
+        STRING.runTest("\"te\\st\"", 0);
+        STRING.runTest("\"te\\st\\\"", 0);
 //        STRING.runTest("opblaasboot", 0);
 
     }
