@@ -82,6 +82,20 @@ public class RegexTest {
         // here is some ambiguity
         STRING.runTest("\"te\\st\"", 0);
         STRING.runTest("\"te\\st\\\"", 0);
+
+        RegexTest MATLAB_COMMENT = new RegexTest("(%\\{(~[%}]*)%\\})|(%([^{].*))");
+        MATLAB_COMMENT.runTest("% bla bla", 0);
+        MATLAB_COMMENT.runTest("% tessfdsdf", 0);
+        MATLAB_COMMENT.runTest("tes sfdsdf", 0);
+        MATLAB_COMMENT.runTest("%{ bla %}", 0);
+        MATLAB_COMMENT.runTest("%{fdssdffs\\nAFSDafsda$3#$% %}", 0);
+
+        RegexTest JAVA_COMMENT = new RegexTest("(/\\*[^\\*]*\\*/)|([//].*)");
+        JAVA_COMMENT.runTest("// bla bla", 0);
+        JAVA_COMMENT.runTest("//tessfdsdf", 0);
+        JAVA_COMMENT.runTest("tes sfdsdf", 0);
+        JAVA_COMMENT.runTest("/* bla %}*/", 0);
+        JAVA_COMMENT.runTest("/*fdssdffs\\nAFSDafsda$3#$% */", 0);
 //        STRING.runTest("opblaasboot", 0);
 
     }
