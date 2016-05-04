@@ -63,14 +63,15 @@ public class RegexTest {
         RegexTest FLOAT = new RegexTest(String.format("%s|(%s|%s)", UnsignedInt, UnsignedReal1, UnsignedReal2));
         //FLOAT.runTest("2346", 0);
         FLOAT.runTest("0.6", 0);
-        //language=RegExp
-        String rString = "[\"](([\\\\][\"])|[^\"])*[\"]";
 
+        // &[^"]
+        String rString = "[\"](([\\\\][\"])|([^\\\\]&[^\"]))*[\"]";
+
+        // make it with more sense
         rString = rString.replace("\"", "\\\"");
 
+
         RegexTest STRING = new RegexTest(rString);
-//        STRING.runTest("'te'st'", 0);
-//        STRING.runTest("'te\\'st'", 0);
         STRING.runTest("\"te\"st\"", 0);
         STRING.runTest("\"te\\\"st\"", 0);
         STRING.runTest("\"test\"", 0);
