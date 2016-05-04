@@ -9,14 +9,24 @@ import java.util.List;
 public class Result {
 
     private long duration = 0;
-    public List<String> matches = new ArrayList<String>();
+    private boolean matched = false;
+    private String match = "";
 
     public Result(long duration) {
         this.duration = duration;
     }
 
     public boolean isMatched() {
-        return !matches.isEmpty();
+        return matched;
+    }
+
+    public String getMatch() {
+        return match;
+    }
+
+    public void setMatch(String match) {
+        this.match = match;
+        matched = true;
     }
 
     public long getDuration() {
@@ -29,9 +39,7 @@ public class Result {
         if (!isMatched()) {
             stringBuilder.append("No matches found! \n");
         } else {
-            for(String s : matches) {
-                stringBuilder.append(String.format("Found: %s \n", s));
-            }
+            stringBuilder.append(String.format("Found: %s \n", match));
         }
 
         stringBuilder.append(String.format("dfaMatchTime %d \n", duration));
