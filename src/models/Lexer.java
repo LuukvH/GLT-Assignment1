@@ -1,3 +1,5 @@
+package models;
+
 import enums.State;
 import enums.Token;
 import models.RegexTest;
@@ -22,12 +24,14 @@ public class Lexer {
 
     private InputStream stream;
 
-    State current_state = start;
-    boolean no_more_input = false;
-    boolean reread_character = false;
-    char current_character;
-    Token current_token;
-    String current_identifier = "";
+    private int index = 0;
+    private int line = 0;
+    private State current_state = start;
+    private boolean no_more_input = false;
+    private boolean reread_character = false;
+    private char current_character;
+    private Token current_token;
+    private String current_identifier = "";
 
     // Used regex
     RegexTest ID = RegexTestFactory.ID();
@@ -41,7 +45,27 @@ public class Lexer {
         stream = new FileInputStream(file);
     }
 
-    public Token KeywordLookup(String s) {
+    public Token getCurrentToken() {
+        return current_token;
+    }
+
+    public String getCurrentIdentifier() {
+        return current_identifier;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public char getCurrentCharacter() {
+        return current_character;
+    }
+
+    private Token KeywordLookup(String s) {
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].equalsIgnoreCase(s)) {
                 return k_tokens[i];
@@ -50,7 +74,7 @@ public class Lexer {
         return current_token;
     }
 
-    public boolean is_white_space(char c) {
+    private boolean is_white_space(char c) {
         switch (c) {
             case '\n':
                 return true;
@@ -63,15 +87,36 @@ public class Lexer {
         }
     }
 
+    private boolean is_new_line(char c) {
+        switch (c) {
+            case '\n':
+                return true;
+            case '\r':
+                return true;
+            default:
+                return false;
+        }
+    }
 
-    public void getNextToken() throws IOException {
+    public void getNextToken() {
         current_state = start;
         current_identifier = "";
 
         while (current_state != done) {
-            no_more_input = (stream.available() == 0);
-            if (!(no_more_input || reread_character)) {
-                current_character = (char) stream.read();
+            try {
+                no_more_input = (stream.available() == 0);
+                if (!(no_more_input || reread_character)) {
+                    current_character = (char) stream.read();
+                    index++;
+
+                    if (is_new_line(current_character)) {
+                        line++;
+                        index = 0;
+                    }
+                }
+            } catch (IOException ex) {
+                current_token = error;
+                current_state = done;
             }
             reread_character = false;
             switch (current_state) {
@@ -147,7 +192,7 @@ public class Lexer {
                     }
                     break;
                 case in_assign:
-                    if (no_more_input || (current_character != '=')){
+                    if (no_more_input || (current_character != '=')) {
                         current_token = error;
                         current_state = done;
                     } else {
@@ -157,6 +202,8 @@ public class Lexer {
                     break;
             }
         }
+
+        System.out.println("Token: " + current_token);
     }
 
 
