@@ -1,14 +1,9 @@
 package models;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import enums.Token;
-
 import static enums.Token.*;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,7 +61,6 @@ public class Parser {
         if (lexer.getCurrentToken() == id) {
 
             // Declare variable
-            Variable variable = new Variable(lexer.getCurrentIdentifier());
             variables.put(lexer.getCurrentIdentifier(), 0);
 
             lexer.getNextToken();
@@ -87,7 +81,7 @@ public class Parser {
             // Get variable
             String variable = lexer.getCurrentIdentifier();
             if (!variables.containsKey(variable)) {
-                System.out.println(String.format("Variable %s does not exist.", lexer.getCurrentIdentifier()));
+                System.out.println(String.format("ERROR: Variable %s not declared.", variable));
             }
 
             lexer.getNextToken();
@@ -173,7 +167,12 @@ public class Parser {
             }
         } else if (lexer.getCurrentToken() == id) {
 
-            value =  variables.get(lexer.getCurrentIdentifier());
+            if (variables.containsKey(lexer.getCurrentIdentifier())) {
+                value =  variables.get(lexer.getCurrentIdentifier());
+            } else {
+                System.out.println(String.format("ERROR: Variable %s not declared.", lexer.getCurrentIdentifier()));
+                value = 0;
+            }
 
             lexer.getNextToken();
         } else if (lexer.getCurrentToken() == nat) {
@@ -195,7 +194,7 @@ public class Parser {
         System.out.println("Results:");
 
         for( Map.Entry<String, Integer> e : variables.entrySet()) {
-                System.out.println(String.format("     %s : %d", e.getKey(), e.getValue()));
+                System.out.println(String.format(" %s : %d", e.getKey(), e.getValue()));
         }
     }
 }

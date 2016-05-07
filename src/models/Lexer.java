@@ -2,13 +2,9 @@ package models;
 
 import enums.State;
 import enums.Token;
-import models.RegexTest;
-import models.RegexTestFactory;
-import models.Result;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Stream;
 
 import static enums.Token.*;
 import static enums.State.*;
@@ -25,7 +21,7 @@ public class Lexer {
     private InputStream stream;
 
     private int index = 0;
-    private int line = 0;
+    private int line = 1;
     private State current_state = start;
     private boolean no_more_input = false;
     private boolean reread_character = false;
@@ -90,8 +86,6 @@ public class Lexer {
     private boolean is_new_line(char c) {
         switch (c) {
             case '\n':
-                return true;
-            case '\r':
                 return true;
             default:
                 return false;
@@ -202,13 +196,5 @@ public class Lexer {
                     break;
             }
         }
-
-        System.out.println("Token: " + current_token);
     }
-
-
-    public static void main(String[] args) {
-
-    }
-
 }
