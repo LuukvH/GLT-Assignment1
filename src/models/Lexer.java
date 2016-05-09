@@ -4,10 +4,10 @@ import enums.State;
 import enums.Token;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import static enums.Token.*;
 import static enums.State.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created by laj on 4-5-2016.
@@ -35,7 +35,7 @@ public class Lexer {
 
     // Initiliaze lexer with a string
     public Lexer(String s) {
-        stream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+        stream = new ByteArrayInputStream(s.getBytes(UTF_8));
     }
 
     // Initialize lexer with a filename
