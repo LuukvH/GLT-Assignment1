@@ -7,10 +7,9 @@ import dk.brics.automaton.RunAutomaton;
 
 public class RegexTest {
     
-    private static RunAutomaton r;
+    private RunAutomaton r;
 
     public RegexTest(String regex) {
-    	System.out.println("regular expression = " + regex);
         r =  new RunAutomaton(new RegExp(regex).toAutomaton());
     }
 
@@ -18,9 +17,9 @@ public class RegexTest {
         long start = System.nanoTime();
         int length = r.run(input, index);
         long end = System.nanoTime();
-        Result result = new Result(end - start);
+        Result result = new Result(input, end - start);
 
-        if (length != -1) {
+        if (length > 0) {
             String s = input.substring(index, index + length);
             result.setMatch(s);
         }
