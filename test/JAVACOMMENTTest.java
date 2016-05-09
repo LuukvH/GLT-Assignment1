@@ -76,6 +76,14 @@ public class JAVACOMMENTTest {
         assertEquals("/* bla */", result.getMatch());
     }
 
+    @Test
+    public void Test9() throws Exception {
+        int index = 0;
+        String input = "/* bla * sdf */ ";
+        Result result = regex.dfaMatch(input, index);
+        assertEquals("/* bla * sdf */", result.getMatch());
+    }
+
 //
 //    JAVA_COMMENT.runTest("// bla bla", 0);
 //    JAVA_COMMENT.runTest("//tessfdsdf", 0);

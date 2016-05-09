@@ -31,11 +31,12 @@ public class RegexTestFactory {
     }
 
     public static RegexTest MATLAB_COMMENT() {
-        return new RegexTest("(%\\{(~[%}]*)%\\})|(%([^{].*))");
+//        return new RegexTest("(/\\*([^*]|(\\*+([^*/])))*\\*+/)|([/][/].*)");
+        return new RegexTest("(%\\{([^%]|(\\%+([^%/])))*%+\\})|(%([^{].*))");
     }
-
     public static RegexTest JAVA_COMMENT() {
-        return new RegexTest("(/\\*[^\\*/]*\\*/)|([/][/].*)");
+        return new RegexTest("(/\\*([^*]|(\\*+([^*/])))*\\*+/)|([/][/].*)");
+
     }
 
 }

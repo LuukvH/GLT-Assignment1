@@ -10,7 +10,7 @@ public class RegexTest {
     private RunAutomaton r;
 
     public RegexTest(String regex) {
-        r =  new RunAutomaton(new RegExp(regex).toAutomaton());
+        r =  new RunAutomaton(new RegExp(regex, RegExp.ALL).toAutomaton());
     }
 
     public Result dfaMatch(String input, int index) {
