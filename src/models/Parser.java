@@ -186,8 +186,11 @@ public class Parser {
         return value;
     }
 
+    boolean isBroken = false;
+
     private void reportError() {
-        System.out.println(String.format("Parse error occured at line %d and position %d, last seen token: %s.", lexer.getLine(), lexer.getIndex(), lexer.getCurrentToken()));
+        isBroken = true;
+        System.out.println(String.format("Parse error occurred at line %d and position %d, last seen token: %s.", lexer.getLine(), lexer.getIndex(), lexer.getCurrentToken()));
     }
 
     private void printResult() {
@@ -204,10 +207,9 @@ public class Parser {
             sb.append(String.format("%s : %d\n", e.getKey(), e.getValue()));
         }
 
-        String s = sb.toString();
-        if(s.isEmpty()) {
-            return String.format("Parse error occured at line %d and position %d, last seen token: %s.", lexer.getLine(), lexer.getIndex(), lexer.getCurrentToken());
+        if(isBroken) {
+            return String.format("Parse error occurred at line %d and position %d, last seen token: %s.", lexer.getLine(), lexer.getIndex(), lexer.getCurrentToken());
         }
-        return s;
+        return sb.toString();
     }
 }

@@ -62,7 +62,7 @@ public class PICOTest {
         System.out.println("Test 4");
         Parser open = open("res/PicoTest4.pico");
         String result = open.result();
-        assertEquals("Wrong result", "Parse error occured at line 4 and position 8, last seen token: k_declare.", result);
+        assertEquals("Wrong result", "Parse error occurred at line 4 and position 8, last seen token: k_declare.", result);
     }
 
     @Test
@@ -81,10 +81,7 @@ public class PICOTest {
         System.out.println("Test 6");
         Parser open = open("res/PicoTest6.pico");
         String result = open.result();
-        assertEquals("Wrong result", "var4 : 3\n" +
-                "var3 : 0\n" +
-                "var2 : 896\n" +
-                "var1 : 30\n", result);
+        assertEquals("Wrong result", "Parse error occurred at line 10 and position 4, last seen token: id.", result);
     }
 
     @Test
@@ -92,10 +89,7 @@ public class PICOTest {
         System.out.println("Test 7");
         Parser open = open("res/PicoTest7.pico");
         String result = open.result();
-        assertEquals("Wrong result", "var4 : 0\n" +
-                "var3 : 0\n" +
-                "var2 : 0\n" +
-                "var1 : 0\n", result);
+        assertEquals("Wrong result", "Parse error occurred at line 4 and position 28, last seen token: nat.", result);
     }
 
     @Test
