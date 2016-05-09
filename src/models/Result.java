@@ -13,9 +13,13 @@ public class Result {
     private boolean fully_matched = false;
     private String match = "";
     private String input = "";
+    private String regex = "";
+    private int index = 0;
 
-    public Result(String input, long duration) {
+    public Result(String input, String regex, int index, long duration) {
+        this.regex = regex;
         this.input = input;
+        this.index = index;
         this.duration = duration;
     }
 
@@ -46,6 +50,10 @@ public class Result {
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(String.format("Used regex = %s \n", regex));
+        stringBuilder.append(String.format("Input string = %s \n", input));
+        stringBuilder.append(String.format("Index = %d \n", index));
 
         if (!isMatched()) {
             stringBuilder.append("No matches found! \n");

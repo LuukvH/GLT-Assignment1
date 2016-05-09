@@ -17,6 +17,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "// bla bla";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("// bla bla", result.getMatch());
     }
 
@@ -25,6 +26,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "//tessfdsdf";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("//tessfdsdf", result.getMatch());
     }
 
@@ -33,6 +35,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "tes sfdsdf";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("", result.getMatch());
     }
 
@@ -41,6 +44,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "/* bla %}*/";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("/* bla %}*/", result.getMatch());
     }
 
@@ -49,6 +53,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "/* bla";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("", result.getMatch());
     }
 
@@ -57,6 +62,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "/*fdssdffs\\\\nAFSDafsda$3#$% */";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("/*fdssdffs\\\\nAFSDafsda$3#$% */", result.getMatch());
     }
 
@@ -65,6 +71,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "// /* sdfsdf";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("// /* sdfsdf", result.getMatch());
     }
 
@@ -73,6 +80,7 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "/* bla */ sdf */ ";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("/* bla */", result.getMatch());
     }
 
@@ -81,13 +89,8 @@ public class JAVACOMMENTTest {
         int index = 0;
         String input = "/* bla * sdf */ ";
         Result result = regex.dfaMatch(input, index);
+        System.out.println(result.toString());
         assertEquals("/* bla * sdf */", result.getMatch());
     }
 
-//
-//    JAVA_COMMENT.runTest("// bla bla", 0);
-//    JAVA_COMMENT.runTest("//tessfdsdf", 0);
-//    JAVA_COMMENT.runTest("tes sfdsdf", 0);
-//    JAVA_COMMENT.runTest("/* bla %}*/", 0);
-//    JAVA_COMMENT.runTest("/*fdssdffs\\nAFSDafsda$3#$% */", 0);
 }
