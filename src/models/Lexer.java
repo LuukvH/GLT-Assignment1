@@ -33,10 +33,12 @@ public class Lexer {
     RegexTest ID = RegexTestFactory.ID();
     RegexTest NAT = RegexTestFactory.NAT();
 
+    // Initiliaze lexer with a string
     public Lexer(String s) {
         stream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
     }
 
+    // Initialize lexer with a filename
     public Lexer(File file) throws FileNotFoundException {
         stream = new FileInputStream(file);
     }
@@ -61,6 +63,7 @@ public class Lexer {
         return current_character;
     }
 
+    // Find a keyword matching a string
     private Token KeywordLookup(String s) {
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].equalsIgnoreCase(s)) {
@@ -70,6 +73,7 @@ public class Lexer {
         return current_token;
     }
 
+    // Check on whitespace
     private boolean is_white_space(char c) {
         switch (c) {
             case '\n':
@@ -83,6 +87,7 @@ public class Lexer {
         }
     }
 
+    // Check for newlines
     private boolean is_new_line(char c) {
         switch (c) {
             case '\n':
@@ -118,10 +123,11 @@ public class Lexer {
                     if (no_more_input) {
                         current_token = end_of_input;
                         current_state = done;
+                        // Ignore whitespaces
                     } else if (is_white_space(current_character)) {
                         current_state = start;
                     } else {
-                        // Recognize tokens
+                        // Recognize tokens in the grammar
                         switch (current_character) {
                             case ';':
                                 current_token = semi_colon;
@@ -159,6 +165,7 @@ public class Lexer {
                                 current_state = in_assign;
                                 break;
                             default:
+                                // When no match characters belong to an identiefier (id, nat, keyword)
                                 current_state = in_identifier;
                                 reread_character = true;
                                 break;
@@ -166,22 +173,29 @@ public class Lexer {
                     }
                     break;
                 case in_identifier:
+                    // When last character does not match NAT, ID or keyword use previous identifier (longest viable input)
+                    // Otherwise keep collecting characters from the input
                     if (no_more_input || (!NAT.dfaMatch(current_identifier + current_character, 0).isFullyMatched() && !ID.dfaMatch(current_identifier + current_character, 0).isFullyMatched())) {
                         reread_character = true;
                         current_state = done;
                         current_token = error;
 
+                        // Collected tokens is a natural number
                         if (NAT.dfaMatch(current_identifier, 0).isMatched()) {
                             current_token = nat;
                         }
 
+                        // Collected tokens is a id
                         if (ID.dfaMatch(current_identifier, 0).isFullyMatched()) {
                             current_token = id;
                         }
 
+                        // Finally check if the collected tokens is a keyword, if so replace current token to keyword token
+                        // Keywords are therefore preffered tokens
                         current_token = KeywordLookup(current_identifier);
 
                     } else {
+                        // Keep collecting input
                         current_identifier += current_character;
                     }
                     break;

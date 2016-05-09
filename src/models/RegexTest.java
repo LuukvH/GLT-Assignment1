@@ -1,6 +1,4 @@
-package models;/*
- * provide names and student id numbers here
- */
+package models;
 
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;

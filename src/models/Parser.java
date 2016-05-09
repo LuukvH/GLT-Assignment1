@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by laj on 7-5-2016.
+ * This files contains the Pico parser it uses a separate lexer, which is located in lexer.java
  */
 public class Parser {
 
@@ -110,6 +110,9 @@ public class Parser {
         }
     }
 
+    // Expressions related to expression return an int which indicate the value calculated
+    // So the values in the pico program are actually calculated!!
+    // Could also return tree nodes to build the parse tree
     private int parseEXP() {
         if (lexer.getCurrentToken() == minus) {
             lexer.getNextToken();
