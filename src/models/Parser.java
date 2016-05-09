@@ -197,4 +197,17 @@ public class Parser {
                 System.out.println(String.format(" %s : %d", e.getKey(), e.getValue()));
         }
     }
+
+    public String result() {
+        StringBuilder sb = new StringBuilder();
+        for( Map.Entry<String, Integer> e : variables.entrySet()) {
+            sb.append(String.format("%s : %d\n", e.getKey(), e.getValue()));
+        }
+
+        String s = sb.toString();
+        if(s.isEmpty()) {
+            return String.format("Parse error occured at line %d and position %d, last seen token: %s.", lexer.getLine(), lexer.getIndex(), lexer.getCurrentToken());
+        }
+        return s;
+    }
 }
