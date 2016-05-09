@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Lexer lexer = null;
         try {
-            lexer = new Lexer(new File("res/PicoTest.pico"));
+            lexer = new Lexer(new File("res/PicoTest7.pico"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;

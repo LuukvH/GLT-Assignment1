@@ -181,7 +181,7 @@ public class Parser {
 
             lexer.getNextToken();
         } else {
-            reportError();
+            value = parseEXP();
         }
         return value;
     }

@@ -1,0 +1,10 @@
+begin
+
+declare
+declare, var2, var3, var4, |
+
+declare := 5+(5*5);
+var2 := (declare + ----(---(--2))) * 32;
+var4 := 3;
+
+end
