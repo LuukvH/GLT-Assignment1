@@ -1,7 +1,5 @@
 import models.RegexTest;
 import models.RegexTestFactory;
-import models.Result;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

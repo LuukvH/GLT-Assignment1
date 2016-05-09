@@ -35,7 +35,7 @@ public class RegexTestFactory {
     }
 
     public static RegexTest JAVA_COMMENT() {
-        return new RegexTest("(/\\*[^\\*]*\\*/)|([//].*)");
+        return new RegexTest("(/\\*[^\\*/]*\\*/)|([/][/].*)");
     }
 
 }
